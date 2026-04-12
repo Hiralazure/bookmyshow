@@ -31,7 +31,7 @@ This project includes the following core modules:
 
 View the Entity-Relationship (ER) diagram:
 
-![ER Diagram](image.png)
+![ER Diagram]![alt text](image.png)
 
 ## Tech Stack
 
