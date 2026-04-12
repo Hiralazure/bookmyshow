@@ -1,10 +1,10 @@
-# Book My Ticket
+# Book My Show
 
 A TypeScript/Node.js application for booking movie tickets online.
 
 ## Overview
 
-**Book My Ticket** is a backend ticketing system that allows users to browse movies, select showtimes, and book tickets. The system ensures no double-booking and prevents multiple users from booking the same seat at the same time.
+**Book My Show** is a backend ticketing system that allows users to browse movies, select showtimes, and book tickets. The system ensures no double-booking and prevents multiple users from booking the same seat at the same time.
 
 **Note:** This is a **backend system only** - no frontend UI is included.
 
