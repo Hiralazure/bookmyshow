@@ -1,16 +1,21 @@
 import { createServer } from "node:http";
 import { createApplication } from "./app";
-
-async function startServer() {
+async function main() {
   try {
     const app = await createApplication();
-    const PORT = process.env.PORT || 3000;
-    app.listen(PORT, () => {
-      console.log(`Server started on port ${PORT}`);
+    const PORT = Number(process.env.PORT) || 3000;
+    const server = app.listen(PORT, () => {
+      console.log(`✅ Server running on port ${PORT}`);
     });
-  } catch (error) {
-    console.log(`Error is starting server ${error}`);
-    throw error;
+
+    server.on("error", (err: any) => {
+      console.error("Server error:", err);
+      process.exit(1);
+    });
+  } catch (err) {
+    console.log("Error in starting server:", err);
+    throw Error;
   }
 }
-startServer();
+
+main();
