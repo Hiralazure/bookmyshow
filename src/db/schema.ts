@@ -38,7 +38,7 @@ export const movieTables = pgTable("movies", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   title: varchar("title", { length: 255 }).notNull(),
   description: text(),
-  releaseDate: date("release_date"),
+  releaseDate: date("release_date").defaultNow(),
   duration: integer(),
   isActive: boolean("is_active").default(true),
 });

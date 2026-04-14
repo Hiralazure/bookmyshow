@@ -9,7 +9,7 @@ declare global {
   }
 }
 export function authenticationMiddleware() {
-  const paths = ["auth/signin", "/auth/signup"];
+  const paths = ["/auth/signin", "/auth/signup"];
 
   return function (req: Request, res: Response, next: NextFunction) {
     try {
