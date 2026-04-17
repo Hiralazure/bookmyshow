@@ -65,9 +65,9 @@ export const showTables = pgTable("shows", {
     .notNull()
     .references(() => screenTables.id)
     .$type<number>(),
-  showDate: date("show_date"),
-  startTime: time("start_time").notNull(),
-  endTime: time("end_time").notNull(),
+  showDate: varchar("show_date"),
+  startTime: varchar("start_time").notNull(),
+  endTime: varchar("end_time").notNull(),
 });
 export const bookingTables = pgTable("booking", {
   id: integer().primaryKey().generatedByDefaultAsIdentity(),
