@@ -15,7 +15,7 @@ import { decimal } from "drizzle-orm/gel-core";
 export const usersTable = pgTable(
   "users",
   {
-    id: integer().primaryKey().generatedAlwaysAsIdentity(),
+    id: integer().primaryKey().generatedByDefaultAsIdentity(),
     firstName: varchar("first_name", { length: 255 }).notNull(),
     lastName: varchar("last_name", { length: 255 }),
     email: varchar("email", { length: 255 }).notNull().unique(),
@@ -35,7 +35,7 @@ export const usersTable = pgTable(
   },
 );
 export const movieTables = pgTable("movies", {
-  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  id: integer().primaryKey().generatedByDefaultAsIdentity(),
   title: varchar("title", { length: 255 }).notNull(),
   description: text(),
   releaseDate: date("release_date").defaultNow(),
@@ -43,21 +43,20 @@ export const movieTables = pgTable("movies", {
   isActive: boolean("is_active").default(true),
 });
 export const screenTables = pgTable("screens", {
-  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  id: integer().primaryKey().generatedByDefaultAsIdentity(),
   screenName: varchar("title", { length: 255 }).notNull(),
   totalSeats: integer("total_seats"),
 });
 export const seatTables = pgTable("seats", {
-  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  id: integer().primaryKey().generatedByDefaultAsIdentity(),
   seatType: varchar("seat_type", { length: 255 }),
   seatNumber: integer("seat_number"),
   screenId: integer("screen_id")
-    .notNull()
     .references(() => screenTables.id)
-    .$type<number>(),
+    .$type<number | null>(),
 });
 export const showTables = pgTable("shows", {
-  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  id: integer().primaryKey().generatedByDefaultAsIdentity(),
   movieId: integer("movie_id")
     .notNull()
     .references(() => movieTables.id)
@@ -71,7 +70,7 @@ export const showTables = pgTable("shows", {
   endTime: time("end_time").notNull(),
 });
 export const bookingTables = pgTable("booking", {
-  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  id: integer().primaryKey().generatedByDefaultAsIdentity(),
   movieId: integer("movie_id")
     .notNull()
     .references(() => movieTables.id)
@@ -90,7 +89,7 @@ export const bookingTables = pgTable("booking", {
 });
 
 export const bookingDetailTables = pgTable("booking_details", {
-  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  id: integer().primaryKey().generatedByDefaultAsIdentity(),
   bookingId: integer("booking_id")
     .notNull()
     .references(() => bookingTables.id)
