@@ -1,0 +1,1 @@
+ALTER TABLE "booking_details" ADD CONSTRAINT "unique_seat_per_show" UNIQUE("seat_id","show_id");

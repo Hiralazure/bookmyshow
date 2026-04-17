@@ -6,6 +6,7 @@ import { movieRouter } from "./movie/movie.routes";
 import { screenRouter } from "./screen/screen.routes";
 import { seatRouter } from "./seat/seat.routes";
 import { showRouter } from "./show/show.routes";
+import { bookingRouter } from "./booking/booking.routes";
 export async function createApplication() {
   const app = express();
   app.use(express.json());
@@ -15,6 +16,7 @@ export async function createApplication() {
   app.use("/screens", screenRouter);
   app.use("/seats", seatRouter);
   app.use("/shows", showRouter);
+  app.use("/",bookingRouter)
 
   app.use(errorHandler);
   return app;

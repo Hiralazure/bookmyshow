@@ -8,10 +8,9 @@ import {
   boolean,
   time,
   foreignKey,
+  unique,
 } from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm";
-import { timestamp } from "drizzle-orm/gel-core";
-import { decimal } from "drizzle-orm/gel-core";
 export const usersTable = pgTable(
   "users",
   {
@@ -73,29 +72,36 @@ export const bookingTables = pgTable("booking", {
   id: integer().primaryKey().generatedByDefaultAsIdentity(),
   movieId: integer("movie_id")
     .notNull()
-    .references(() => movieTables.id)
-    .$type<number>(),
+    .references(() => movieTables.id),
   showId: integer("show_id")
     .notNull()
-    .references(() => showTables.id)
-    .$type<number>(),
+    .references(() => showTables.id),
   userId: integer("user_id")
     .notNull()
-    .references(() => usersTable.id)
-    .$type<number>(),
+    .references(() => usersTable.id),
   bookingStatus: varchar("booking_status", { length: 255 }),
   createdAt: date().defaultNow(),
   updatedAt: date().defaultNow(),
 });
 
-export const bookingDetailTables = pgTable("booking_details", {
-  id: integer().primaryKey().generatedByDefaultAsIdentity(),
-  bookingId: integer("booking_id")
-    .notNull()
-    .references(() => bookingTables.id)
-    .$type<number>(),
-  seatId: integer("seat_id")
-    .notNull()
-    .references(() => seatTables.id)
-    .$type<number>(),
-});
+export const bookingDetailTables = pgTable(
+  "booking_details",
+  {
+    id: integer().primaryKey().generatedByDefaultAsIdentity(),
+    bookingId: integer("booking_id")
+      .notNull()
+      .references(() => bookingTables.id),
+    seatId: integer("seat_id")
+      .notNull()
+      .references(() => seatTables.id),
+    showId: integer("show_id")
+      .notNull()
+      .references(() => showTables.id),
+  },
+  (table) => ({
+    uniqueSeatPerShow: unique("unique_seat_per_show").on(
+      table.seatId,
+      table.showId,
+    ),
+  }),
+);
